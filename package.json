@@ -44,5 +44,5 @@
   "devDependencies": {
     "react-axe": "^3.5.4"
   },
-  "homepage": "https://davidmenendez.github.io/davidmenendez/add-select-accessibility/"
+  "homepage": "https://davidmenendez.github.io/add-select-accessibility/"
 }

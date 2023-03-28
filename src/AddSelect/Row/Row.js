@@ -1,3 +1,4 @@
+import { useEffect, useRef, useCallback } from 'react';
 import cx from 'classnames';
 import { prefix } from "../../constants"
 import {
@@ -11,16 +12,33 @@ const Row = ({
   name,
   selected,
   setSelected,
-  parentId,
   children,
   parentHandler,
+  focus,
+  index,
+  setFocus,
+  parentId,
 }) => {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (focus) {
+      ref.current.focus();
+    }
+  }, [focus]);
+
+  const focusHandler = useCallback(() => {
+    console.log(name);
+    setFocus(index);
+  }, [name, index, setFocus]);
+
   const onSelectKeyDown = ({ key }) => {
     if (key === 'Enter') {
       onSelectHandler();
     }
   };
   const onSelectHandler = () => {
+    focusHandler();
     setSelected(guid);
   };
 
@@ -37,7 +55,8 @@ const Row = ({
       })}
       onClick={onSelectHandler}
       onKeyDown={onSelectKeyDown}
-      tabIndex={0}
+      tabIndex={focus ? 0 : -1}
+      ref={ref}
     >
       <div className={`${prefix}__input-group`}>
         {isSelected ? (

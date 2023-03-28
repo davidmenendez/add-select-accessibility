@@ -16,7 +16,7 @@
         "name": "sub child 1",
         "children": [
           {
-            "guid": "9999",
+            "guid": "99999",
             "name": "sub child 2"
           }
         ]

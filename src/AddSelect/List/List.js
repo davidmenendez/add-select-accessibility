@@ -9,7 +9,11 @@ const List = ({
 }) => {
   const [focus, setFocus] = useFocus(entries.length);
   return (
-    <div className={`${prefix}__list`}>
+    <div
+      className={`${prefix}__list`}
+      role="treegrid"
+      aria-label="add select label"
+    >
       {entries.map((guid, index) => {
         const entry = data[guid];
         return (
@@ -18,6 +22,7 @@ const List = ({
             setFocus={setFocus}
             index={index}
             focus={focus === index}
+            setSize={entries.length}
             {...entry}
             {...rest}
           />

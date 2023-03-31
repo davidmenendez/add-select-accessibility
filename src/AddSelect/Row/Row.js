@@ -18,6 +18,8 @@ const Row = ({
   index,
   setFocus,
   parentId,
+  breadcrumbLevel,
+  setSize,
 }) => {
   const ref = useRef(null);
 
@@ -57,8 +59,16 @@ const Row = ({
       onKeyDown={onSelectKeyDown}
       tabIndex={focus ? 0 : -1}
       ref={ref}
+      role="row"
+      aria-level={breadcrumbLevel}
+      aria-setsize={setSize}
+      aria-posinset={index + 1}
+      aria-selected={isSelected}
     >
-      <div className={`${prefix}__input-group`}>
+      <div
+        className={`${prefix}__input-group`}
+        role="gridcell"
+      >
         {isSelected ? (
           <BiRadioCircleMarked size="2rem" onClick={onSelectHandler} />
         ) : (
@@ -71,6 +81,8 @@ const Row = ({
           <button
             onClick={onDrillDownHandler}
             className={`${prefix}__row-button`}
+            tabIndex={-1}
+            aria-hidden
           >
             <BiChevronRight size="2rem" />
           </button>

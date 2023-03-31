@@ -67,6 +67,7 @@ const App = () => {
         selected={selected}
         setSelected={setSelected}
         parentHandler={parentHandler}
+        breadcrumbLevel={breadcrumbs.length}
       />
       <Footer
         selected={selected}

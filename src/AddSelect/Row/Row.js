@@ -23,29 +23,44 @@ const Row = ({
 }) => {
   const ref = useRef(null);
 
+  const getTabIndex = () => {
+    if (index === 0 && focus === '') {
+      return 0;
+    }
+
+    if (focus === index && focus !== '') {
+      return 0;
+    }
+
+    return -1;
+  };
+
+  const tabIndex = getTabIndex();
+
   useEffect(() => {
-    if (focus) {
+    if (focus === index) {
       ref.current.focus();
     }
-  }, [focus]);
+  }, [focus, index]);
 
-  const focusHandler = useCallback(() => {
-    console.log(name);
-    setFocus(index);
-  }, [name, index, setFocus]);
+  const focusHandler = useCallback((reset) => {
+    console.log(reset);
+    setFocus(reset ? '' : index);
+  }, [index, setFocus]);
 
   const onSelectKeyDown = ({ key }) => {
     if (key === 'Enter') {
       onSelectHandler();
+    } else if (key === 'ArrowRight') {
+      onDrillDownHandler();
     }
   };
   const onSelectHandler = () => {
-    focusHandler();
     setSelected(guid);
   };
 
-  const onDrillDownHandler = (e) => {
-    e.stopPropagation();
+  const onDrillDownHandler = () => {
+    focusHandler(true);
     parentHandler(guid, name);
   };
 
@@ -57,7 +72,7 @@ const Row = ({
       })}
       onClick={onSelectHandler}
       onKeyDown={onSelectKeyDown}
-      tabIndex={focus ? 0 : -1}
+      tabIndex={tabIndex}
       ref={ref}
       role="row"
       aria-level={breadcrumbLevel}

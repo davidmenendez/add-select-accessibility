@@ -10,6 +10,7 @@ const List = ({
   const [focus, setFocus] = useFocus(entries.length);
   return (
     <div
+      id="add-select-list"
       className={`${prefix}__list`}
       role="treegrid"
       aria-label="add select label"
@@ -21,7 +22,7 @@ const List = ({
             key={guid}
             setFocus={setFocus}
             index={index}
-            focus={focus === index}
+            focus={focus}
             setSize={entries.length}
             {...entry}
             {...rest}
